@@ -7,7 +7,7 @@ enum AValueType {
   AINTEGRAL = 1
   AFLOATING = 2
   ACHARACTER = 3
-  ALABEL = 4
+  ACOMMENT = 4
   ASTRCONST = 5
   ABYTECONST = 6
   ABOOLCONST = 7
@@ -16,8 +16,8 @@ struct AVar {
   1: string    name
 }
 
-struct ALabel {
-  1: string name
+struct AComment {
+  1: string text
 }
 
 struct AIntegral {
@@ -69,13 +69,12 @@ enum AOper {
 
 union ASimple {
   1: AVar variable,
-  2: ALabel label
-  3: AIntegral integralConst
-  4: AStr strConst
-  5: AChar charConst
-  6: AFloating doubleConst
-  7: ABool booleanConst
-  8: AByte byteConst
+  2: AIntegral integralConst
+  3: AStr strConst
+  4: AChar charConst
+  5: AFloating doubleConst
+  6: ABool booleanConst
+  7: AByte byteConst
 }
 
 struct ABinary {
@@ -142,6 +141,7 @@ union AExpr {
   7: AIfElse ite
   8: AFieldAccess fieldAcc
   9: ACollAccess collectionAcc
+  10: AComment comment
 }
 
 union ALValue {
@@ -184,12 +184,16 @@ struct AFor {
   5: list<AStmt> block
 }
 
+struct ACommStmt {
+  1: string comment
+}
 union AStmt {
   1: AAssign assigment
   2: ADeclr declaration
   3: AIfStmt ifstmt
   4: AWhile whileLoop
   5: AFor forLoop
+  6: ACommStmt comment
 }
 
 struct AMethod {
@@ -205,12 +209,17 @@ struct AStructField {
    2: AType type
    3: AExpr initValue
 }
+union AStructMember {
+  1: AStructField field
+  2: string comment
+}
 struct AStruct {
   1: string name
-  2: list<AStructField> fields
+  2: list<AStructMember> members
 }
 
 struct AModule {
   1: list<AStruct> structures
   2: list<AMethod> methods
+  3: list<string> comments
 }
