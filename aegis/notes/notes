@@ -1,0 +1,3 @@
+thrift.exe -out . --gen py Aegis.thrift
+thrift.exe -out . --gen rs Aegis.thrift
+thrift.exe -out . --gen netstd:union Aegis.thrift

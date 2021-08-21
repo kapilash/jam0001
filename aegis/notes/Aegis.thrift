@@ -1,5 +1,6 @@
 namespace netstd AegisCore
 namespace rs aegis_core
+namespace py aegis_core
 
 
 enum AValueType {
